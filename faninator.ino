@@ -1,8 +1,11 @@
 
 int fan_relay_pin = 11;
+int override_switch_pin = 10;
 bool fan_state = false;
 int currentstate = 69;
 int ghosted_counter = 0;
+bool switch_override = false;
+
 void setup()
 
 {
@@ -24,20 +27,17 @@ if (Serial.available())
   }
 }
 else{
-  if(ghosted_counter < 10){
+  if(ghosted_counter < 50){
     ghosted_counter += 1;
   } 
 }
 
-if(fan_state == true && ghosted_counter < 10){
+if( (fan_state == true && ghosted_counter < 50 ) || switch_override){
   digitalWrite(fan_relay_pin, HIGH);
-
 }
 else{
   digitalWrite(fan_relay_pin, LOW);
 }
-delay(500);
-
-
+delay(100);
 }
 
