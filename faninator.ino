@@ -35,7 +35,11 @@ else{
     ghosted_counter += 1;
   } 
 }
-button_state =
+button_state = digitalRead(override_switch_pin);
+if(button_state == HIGH){
+  switch_override += 1;
+  switch_override = switch_override % 2;
+}
 
 if( (fan_state == true && ghosted_counter < 50 ) || switch_override == 1){
   digitalWrite(fan_relay_pin, HIGH);
