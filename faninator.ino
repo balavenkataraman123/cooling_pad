@@ -1,15 +1,19 @@
 
 int fan_relay_pin = 11;
 int override_switch_pin = 10;
+
+
 bool fan_state = false;
 int currentstate = 69;
+int switch_override = 0;
+
 int ghosted_counter = 0;
-bool switch_override = false;
 
 void setup()
 
 {
 pinMode(fan_relay_pin, OUTPUT);
+pinMode(override_switch_pin, OUTPUT);
 Serial.begin(9600);
 }
 
@@ -31,8 +35,9 @@ else{
     ghosted_counter += 1;
   } 
 }
+button_state =
 
-if( (fan_state == true && ghosted_counter < 50 ) || switch_override){
+if( (fan_state == true && ghosted_counter < 50 ) || switch_override == 1){
   digitalWrite(fan_relay_pin, HIGH);
 }
 else{
